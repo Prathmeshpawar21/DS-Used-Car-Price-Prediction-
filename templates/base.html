@@ -24,10 +24,6 @@
     <script src="{{ url_for('static', filename='bootstrap.bundle.min.js') }}"></script>
   </head>
 
-
-
-
-
   <body>
     <div class="bodyclass">
       <div class="navbarbox">
@@ -37,104 +33,145 @@
       </div>
 
       <div class="container">
-        <form class="align-self-center">
-          <div class="form-group">
-            <label for="inputState">Car Company</label>
-            <select id="inputState" class="form-control" name="cars">
-              {% for car in car_company_names %}
-              <option>{{ car }}</option>
-              {% endfor %}
-            </select>
-
-            <label for="inputState">Fuel Type</label>
-            <select id="inputState" class="form-control" name="fuel">
-              <option>Petrol</option>
-              <option>Diesel</option>
-              <option>CNG</option>
-              <option>LPG</option>
-            </select>
-            <label for="inputState">Seller Type</label>
-            <select id="inputState" class="form-control" name="fuel">
-              <option>Individual</option>
-              '', '', ''
-              <option>Dealer</option>
-              <option>Trustmark Dealer</option>
-            </select>
-
-            <label for="inputState">Transmisson Type</label>
-            <select id="inputState" class="form-control" name="fuel">
-              <option>Manual</option>
-              <option>Automatic</option>
-            </select>
-
-            <div class="range-slider">
-              <label for="formControlRange">Manufactured Year</label>
-              <input
-                class="range-slider__range"
-                type="range"
-                value="100"
-                min="0"
-                max="500"
-              />
-              <span class="range-slider__value">100</span>
+        <form class="w-50 p-3" method="post">
+          <div class="inputGrids">
+            <div>
+              <label for="inputState">Car Company</label>
+              <select id="inputState" class="form-control" name="carcompany">
+                {% for car in car_company_names %}
+                <option>{{ car }}</option>
+                {% endfor %}
+              </select>
+            </div>
+            <div>
+              <label for="inputState">Fuel Type</label>
+              <select id="inputState" class="form-control" name="fueltype">
+                <option>Petrol</option>
+                <option>Diesel</option>
+                <option>CNG</option>
+                <option>LPG</option>
+              </select>
             </div>
 
-            <div class="range-slider">
-              <label for="formControlRange">Kms Driven</label>
-              <input
-                class="range-slider__range"
-                type="range"
-                value="250"
-                min="0"
-                max="500"
-                step="50"
-              />
-              <span class="range-slider__value">250</span>
+            <div>
+              <label for="inputState">Seller Type</label>
+              <select id="inputState" class="form-control" name="sellertype">
+                <option>Individual</option>
+                <option>Dealer</option>
+                <option>Trustmark Dealer</option>
+              </select>
             </div>
-
-            <div class="range-slider">
-              <label for="formControlRange">Car Engine CC</label>
-              <input
-                class="range-slider__range"
-                type="range"
-                value="400"
-                min="0"
-                max="500"
-              />
-              <span class="range-slider__value">400</span>
-            </div>
-
-            <div class="range-slider">
-              <label for="formControlRange">Car Mileage</label>
-              <input
-                class="range-slider__range"
-                type="range"
-                value="400"
-                min="0"
-                max="500"
-              />
-              <span class="range-slider__value">400</span>
-            </div>
-
-            <div class="range-slider">
-              <label for="formControlRange">No. of Seats</label>
-              <input
-                class="range-slider__range"
-                type="range"
-                value="400"
-                min="0"
-                max="500"
-              />
-              <span class="range-slider__value">400</span>
+            <div>
+              <label for="inputState">Transmisson Type</label>
+              <select id="inputState" class="form-control" name="transmissiontype">
+                <option>Manual</option>
+                <option>Automatic</option>
+              </select>
             </div>
           </div>
+
+          <div class="range-slider">
+            <label for="formControlRange">Car Owner</label>
+            <input
+              class="range-slider__range"
+              type="range"
+              value="100"
+              min="0"
+              max="500"
+              name="carowner"
+            />
+
+            <span class="range-slider__value">100</span>
+          </div>
+
+          <div class="range-slider">
+            <label for="formControlRange">Manufactured Year</label>
+            <input
+              class="range-slider__range"
+              type="range"
+              value="100"
+              min="0"
+              max="500"
+              name="manufacturedyear"
+            />
+
+            <span class="range-slider__value">100</span>
+          </div>
+
+          <div class="range-slider">
+            <label for="formControlRange">Kms Driven</label>
+            <input
+              class="range-slider__range"
+              type="range"
+              value="250"
+              min="0"
+              max="500"
+              step="50"
+              name="kmsdriven"
+            />
+            <span class="range-slider__value">250</span>
+          </div>
+
+          <div class="range-slider">
+            <label for="formControlRange">Car Engine CC</label>
+            <input
+              class="range-slider__range"
+              type="range"
+              value="400"
+              min="0"
+              max="500"
+              name="carenginecc"
+            />
+            <span class="range-slider__value">400</span>
+          </div>
+
+          <div class="range-slider">
+            <label for="formControlRange">Car Mileage</label>
+            <input
+              class="range-slider__range"
+              type="range"
+              value="400"
+              min="0"
+              max="500"
+              name="carmileage"
+            />
+            <span class="range-slider__value">400</span>
+          </div>
+
+          <div class="range-slider">
+            <label for="formControlRange">No. of Seats</label>
+            <input
+              class="range-slider__range"
+              type="range"
+              value="400"
+              min="0"
+              max="500"
+              name="noofseats"
+            />
+            <span class="range-slider__value">400</span>
+          </div>
+
+          <button type="submit" class="btn btn-primary">Submit</button>
         </form>
       </div>
+    </div>
 
-      <div class="owner">
-        <h5>By-Prathamesh J. Pawar</h5>
-      </div>
 
+    <div class="predictedOutput">
+
+      {% if request.method == "POST"  %} 
+      {{InputDataDF}} 
+
+
+       {% else %} 
+      No {{ InputDataDF }}   
+
+      {% endif %}
+    </div>
+    
+
+    <div class="owner">
+      <h5>By-Prathamesh J. Pawar</h5>
     </div>
   </body>
 </html>

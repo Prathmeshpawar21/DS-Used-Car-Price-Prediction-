@@ -16,9 +16,13 @@ def get_first(inp):
     inp = inp.split(' ')[0]
     return inp
 
-
 car_company_names =  dataFrame['name'].apply(get_carBrandNames).unique().tolist()
 car_company_names.sort()
+
+
+
+
+
 
 
 if __name__ == "__main__":
