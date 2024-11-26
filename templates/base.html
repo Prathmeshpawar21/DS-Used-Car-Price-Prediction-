@@ -70,18 +70,22 @@
             </div>
           </div>
 
-          <div class="range-slider">
-            <label for="formControlRange">Car Owner</label>
-            <input
-              class="range-slider__range"
-              type="range"
-              value="100"
-              min="0"
-              max="500"
-              name="carowner"
-            />
+          <div>
+            <label for="inputState">Car Owner</label>
+            <select id="inputState" class="form-control" name="carowner">
+              <option>First Owner</option>
+              <option>Second Owner</option>
+              <option>Third Owner</option>
+              <option>Fourth & Above Owner</option>
+              <option>Test Drive Car</option>
+            </select>
+          </div>
+        </div>
 
-            <span class="range-slider__value">100</span>
+
+  
+
+            <span class="range-slider__value">1</span>
           </div>
 
           <div class="range-slider">
@@ -89,13 +93,14 @@
             <input
               class="range-slider__range"
               type="range"
-              value="100"
-              min="0"
-              max="500"
+              value="1994"
+              min="1994"
+              max="2020"
+              step="1"
               name="manufacturedyear"
             />
 
-            <span class="range-slider__value">100</span>
+            <span class="range-slider__value">1994</span>
           </div>
 
           <div class="range-slider">
@@ -103,52 +108,57 @@
             <input
               class="range-slider__range"
               type="range"
-              value="250"
-              min="0"
-              max="500"
-              step="50"
+              value="1000"
+              min="1000"
+              max="600000"
+              step="1000"
               name="kmsdriven"
             />
-            <span class="range-slider__value">250</span>
+            <span class="range-slider__value">1000</span>
           </div>
 
-          <div class="range-slider">
-            <label for="formControlRange">Car Engine CC</label>
-            <input
-              class="range-slider__range"
-              type="range"
-              value="400"
-              min="0"
-              max="500"
-              name="carenginecc"
-            />
-            <span class="range-slider__value">400</span>
-          </div>
 
           <div class="range-slider">
             <label for="formControlRange">Car Mileage</label>
             <input
               class="range-slider__range"
               type="range"
-              value="400"
-              min="0"
-              max="500"
+              value="9"
+              min="9"
+              max="42"
               name="carmileage"
             />
-            <span class="range-slider__value">400</span>
+            <span class="range-slider__value">9</span>
           </div>
+
+          
+          <div class="range-slider">
+            <label for="formControlRange">Car Engine CC</label>
+            <input
+              class="range-slider__range"
+              type="range"
+              value="650"
+              min="650"
+              max="3604"
+              step="100"
+              name="carenginecc"
+            />
+            <span class="range-slider__value">650</span>
+          </div>
+
+          
 
           <div class="range-slider">
             <label for="formControlRange">No. of Seats</label>
             <input
               class="range-slider__range"
               type="range"
-              value="400"
-              min="0"
-              max="500"
+              value="2"
+              min="2"
+              max="14"
               name="noofseats"
             />
-            <span class="range-slider__value">400</span>
+            <span class="range-slider__value">2</span>
           </div>
 
           <button type="submit" class="btn btn-primary">Submit</button>

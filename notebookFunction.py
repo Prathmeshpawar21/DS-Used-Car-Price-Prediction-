@@ -2,7 +2,12 @@ from flask import Flask, render_template, request, url_for, redirect
 import pandas as pd
 import pickle as pkl
 import numpy as np
+from sklearn.preprocessing import OneHotEncoder
 
+import app as ap
+import research as rs
+
+print("FILE : notebookFunction.py ")
 dataFrame = pd.read_csv('./data/Cardetails.csv')
 
 
@@ -24,8 +29,9 @@ car_company_names.sort()
 
 
 
-
 if __name__ == "__main__":
-    print(car_company_names)
+    pass
+
+
 
 
