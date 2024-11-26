@@ -20,7 +20,7 @@ import notebookFunction as nf
 # In[3]:
 
 
-df = pd.read_csv(r"E:/DataScientist/DS-Used-Car-Price-Prediction/data/Cardetails.csv")
+df = pd.read_csv(r"./data/Cardetails.csv")
 # df
 print("FILE : research.py ")
 
