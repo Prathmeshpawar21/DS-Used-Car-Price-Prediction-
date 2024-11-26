@@ -39,7 +39,7 @@ def homepage():
         seats = request.form.get("noofseats")
         SELLING_PRICE = 0
     # DataFrameMaking
-    InputDataDF = pd.DataFrame([[name, year, SELLING_PRICE, km_driven, fuel, seller_type,transmission, owner, mileage, engine, seats]],columns=['name', 'year', 'selling_price', 'km_driven', 'fuel', 'seller_type','transmission', 'owner', 'mileage', 'engine', 'seats'])
+    # InputDataDF = pd.DataFrame([[name, year, SELLING_PRICE, km_driven, fuel, seller_type,transmission, owner, mileage, engine, seats]],columns=['name', 'year', 'selling_price', 'km_driven', 'fuel', 'seller_type','transmission', 'owner', 'mileage', 'engine', 'seats'])
    
     if request.method == "POST":
         fromDataDict = {
