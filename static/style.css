@@ -21,6 +21,13 @@
   font-style: normal;
     
   }
+html{
+  background-color: black;
+}
+
+
+
+
 .bodyclass{
   height: 100vh; 
   place-items: center;
@@ -49,6 +56,9 @@
   background-color:#060e12;
   border-bottom-left-radius: 30px;
   border-bottom-right-radius: 30px;
+  border-bottom: 2px solid red;
+  border-left: 2px solid red;
+  border-right: 2px solid red;
 
 }
 .navbar {
@@ -80,18 +90,36 @@ font-family:"Ubuntu"sans-serif;
         height: 100vh;
         width: 100vw;
     }
-  .owner h5{
-margin-right: 50px;
-font-size: 15px;
+.owner h5{
+    margin: 50px;
+    margin-bottom: 7px;
+font-size: 10px;
 background-color: black;
 color: rgb(231, 231, 231);
 border-top-right-radius: 20px;
 border-top-left-radius: 20px;
 
-padding: 5px;
+padding: 10px;
 width: 100%;
 text-align: center;
     }
+
+.owner{
+
+display: flex;
+  
+}
+
+
+
+
+.buttonClass{
+  display: flex;
+  justify-content: center;
+  
+
+}
+
 
 
 .container{
@@ -103,7 +131,7 @@ flex-direction: column;
       align-content: center;
       justify-content:space-around;
       align-items: center;
-      margin-top: 50px;
+      margin-top: 30px;
       /* margin-bottom: px; */
 
 
@@ -125,6 +153,8 @@ flex-direction: column;
   border-radius: 15px;
   padding:7px;
   margin-bottom: 20px;
+  text-align: center;
+  
 }
 #inputState option{
   color: rgb(255, 255, 255);
@@ -132,31 +162,25 @@ flex-direction: column;
   
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+#carCompany{
+  justify-items: center;
+  color: red;
+  font-weight: bold;
+}
+label {
+  margin-right: 13px;
+  display: inline-block;
+  margin-bottom: .5rem;
+  
+}
+.labelClass{
+  color: red;
+  text-align: center;
+  justify-items: center;
+}
+#labelTitle{
+  justify-items: center;
+}
 
 
 /* Slider CSS */
@@ -202,4 +226,74 @@ flex-direction: column;
 form{
   isolation: isolate;
 
+}
+
+.formClass{
+  width: 60%;
+}
+
+
+@media only screen and (max-width: 749px) {
+
+  
+ 
+    .inputGrids {
+      display: grid;
+      grid-template-columns: 100%;
+      grid-template-rows: auto;
+      gap: 20px;
+      width: 100%;
+      justify-content: center;
+      justify-items: stretch;
+      } 
+      
+      .formClass{
+        width: 75%;
+      }
+
+
+
+}
+
+
+
+.predictedOutput{
+  margin: 30px;
+  align-items: center;
+  justify-content: center;
+  justify-items: center;
+  text-align: center;
+}
+
+
+
+
+
+
+.output{
+  font-family: "Ubuntu", sans-serif;
+  /* background-color: rgb(13, 151, 0); */
+  border-radius: 10px;
+  padding: 5px;
+  border-bottom: 2px solid rgb(165, 165, 165);
+  box-shadow:0 8px 10px -6px rgb(165, 165, 165); 
+
+}
+
+
+.btnClass{
+  /* border-bottom: 2px solid rgb(211, 0, 0); */
+  box-shadow: 0 0 15px 4px rgb(165, 165, 165); 
+
+}
+.navbarbox{
+
+  box-shadow:0 8px 10px -6px rgb(255, 43, 43); 
+
+
+}
+
+
+.predictedOutput{
+  margin-top: 10px;
 }

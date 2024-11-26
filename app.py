@@ -11,11 +11,6 @@ from sklearn.preprocessing import StandardScaler
 
 
 
-global_variable = "Hello from app.py!"
-
-# Global varibles
-
-# from research import df
 
 logo_url = './static/logo.ico'
 model = pkl.load(open('./model/Model.pkl','rb'))
@@ -26,6 +21,7 @@ app = Flask(__name__)
 form_data = {}
 @app.route("/",methods=["POST","GET"])
 def homepage():
+     
     print("FILE : app.py ")
     car_company_names =  dataFrame['name'].apply(nf.get_carBrandNames).unique().tolist()
     car_company_names.sort()
@@ -163,9 +159,13 @@ def homepage():
     if (test_input_Data_for_model.columns.tolist() == test_columns):
         print("SIMILLAR COLOUMS")
     
-   
-   
-    print("Predicted Value : ", model.predict(test_input_Data_for_model))
+    
+    
+   #################################################################################
+    FinalPredictedOutput =  model.predict(test_input_Data_for_model)
+    FinalPredictedOutput = FinalPredictedOutput[0]
+    print("Predicted Value : ", FinalPredictedOutput)
+   #################################################################################
 
    
         
@@ -194,8 +194,11 @@ def homepage():
     
     
     
+    # return render_template('./base.html', **fromDataDict, car_company_names=car_company_names,InputDataDF=InputDataDF,FinalPredictedOutput=FinalPredictedOutput)
     
-    return render_template('./base.html', **fromDataDict, car_company_names=car_company_names,InputDataDF=InputDataDF)
+    return render_template('./base.html', car_company_names=car_company_names,FinalPredictedOutput=FinalPredictedOutput)
+    return 
+
 
 
 
