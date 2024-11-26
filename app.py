@@ -152,7 +152,7 @@ def homepage():
         "year": [scaled_form_data[0]],
         "km_driven":  [scaled_form_data[1]],
         "mileage":  [scaled_form_data[2]],
-        "engine":  [scaled_form_data[3]],
+        "engine":  [scaled_form_data[3]],  
         "seats":  [scaled_form_data[4]]
     })
 
