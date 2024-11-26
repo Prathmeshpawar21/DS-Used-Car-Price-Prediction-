@@ -20,7 +20,7 @@ app = Flask(__name__)
 form_data = {}
 
 
-@app.route("/", methods=["POST", "GET"])
+@app.route("/", methods=["POST"])
 def homepage():
 
     print("FILE : app.py ")
