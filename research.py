@@ -7,15 +7,16 @@
 import numpy as np
 import pandas as pd
 import seaborn as sns
-import matplotlib.pyplot as plt 
+import matplotlib.pyplot as plt
 import pickle as pkl
 
 
 import app as ap
 import notebookFunction as nf
+
 # from app import global_variable
 
-# print(global_variable) 
+# print(global_variable)
 
 # In[3]:
 
@@ -83,7 +84,7 @@ df.drop_duplicates(inplace=True)
 # In[13]:
 
 
-df1 = df.drop(columns=["max_power","torque"])
+df1 = df.drop(columns=["max_power", "torque"])
 
 
 # In[14]:
@@ -111,46 +112,38 @@ df1 = df.drop(columns=["max_power","torque"])
 
 
 def get_carBrandNames(carName):
-    carName = carName.strip(' ')
-    carName = carName.split(' ')[0]
+    carName = carName.strip(" ")
+    carName = carName.split(" ")[0]
     return carName
 
+
 def get_first(inp):
-    inp = inp.strip(' ')
-    inp = inp.split(' ')[0]
+    inp = inp.strip(" ")
+    inp = inp.split(" ")[0]
     return inp
 
 
 # In[18]:
 
 
-df1['name'] = df1['name'].apply(get_carBrandNames)
+df1["name"] = df1["name"].apply(get_carBrandNames)
 # df1
 
 
 # In[19]:
 
 
-df1['mileage'] = df1['mileage'].apply(get_first)
-df1['engine'] = df1['engine'].apply(get_first)
+df1["mileage"] = df1["mileage"].apply(get_first)
+df1["engine"] = df1["engine"].apply(get_first)
 
 
 # In[ ]:
 
 
-
-
-
 # In[ ]:
 
 
-
-
-
 # In[ ]:
-
-
-
 
 
 # In[20]:
@@ -165,15 +158,15 @@ df1['engine'] = df1['engine'].apply(get_first)
 # In[21]:
 
 
-df1['mileage'] = df1['mileage'].astype(float)
-df1['engine'] = df1['engine'].astype(float)
+df1["mileage"] = df1["mileage"].astype(float)
+df1["engine"] = df1["engine"].astype(float)
 
 
 # In[22]:
 
 
 # df1.info()
-df2 = df1.copy().reset_index(drop = True)
+df2 = df1.copy().reset_index(drop=True)
 # print(df2.columns)
 # df2.head(3)
 
@@ -181,21 +174,15 @@ df2 = df1.copy().reset_index(drop = True)
 # In[ ]:
 
 
-
-
-
 # In[ ]:
-
-
-
 
 
 # In[23]:
 
 
-df2['year'] = df2['year'].astype('int64')
-df2['selling_price'] = df2['selling_price'].astype('float64')
-df2['km_driven'] = df2['km_driven'].astype('float64')
+df2["year"] = df2["year"].astype("int64")
+df2["selling_price"] = df2["selling_price"].astype("float64")
+df2["km_driven"] = df2["km_driven"].astype("float64")
 
 
 # In[24]:
@@ -216,7 +203,7 @@ df2.head(3)
 df2.columns
 
 
-# 
+#
 
 # In[71]:
 
@@ -227,17 +214,10 @@ dummyDataFrame = df2.copy()
 # query
 
 
-
 # In[ ]:
 
 
-
-
-
 # In[ ]:
-
-
-
 
 
 # ### Enconding
@@ -245,7 +225,7 @@ dummyDataFrame = df2.copy()
 # In[28]:
 
 
-categoriesCol = df2.select_dtypes(include=['object']).columns.tolist()
+categoriesCol = df2.select_dtypes(include=["object"]).columns.tolist()
 # print(categoriesCol)
 
 
@@ -265,22 +245,21 @@ ohe = OneHotEncoder(sparse_output=False)
 
 
 encodedOHEArr = ohe.fit_transform(df2[categoriesCol])
-encodedOHEDf = pd.DataFrame(encodedOHEArr,columns= ohe.get_feature_names_out(categoriesCol))
+encodedOHEDf = pd.DataFrame(
+    encodedOHEArr, columns=ohe.get_feature_names_out(categoriesCol)
+)
 
 
 # In[32]:
 
 
-df3 = pd.concat([df2,encodedOHEDf],axis=1)
+df3 = pd.concat([df2, encodedOHEDf], axis=1)
 df4 = df3.drop(columns=categoriesCol)
 
 # df4
 
 
 # In[ ]:
-
-
-
 
 
 # In[33]:
@@ -292,7 +271,7 @@ df4 = df3.drop(columns=categoriesCol)
 # In[34]:
 
 
-col = ['year',	'selling_price',	'km_driven',	'mileage'	,'engine'	,'seats']
+col = ["year", "selling_price", "km_driven", "mileage", "engine", "seats"]
 # sns.pairplot(data=df[col])
 # sns.histplot(data=df['seats'],kde=True)
 
@@ -306,28 +285,29 @@ col = ['year',	'selling_price',	'km_driven',	'mileage'	,'engine'	,'seats']
 # In[ ]:
 
 
-
-
-
-# ### Scaling - Standardization 
+# ### Scaling - Standardization
 
 # In[36]:
 
 
 df5 = df4.copy()
 
-scalingIndependentVar = ['year','km_driven','mileage','engine','seats']
-scalingDF = df5[scalingIndependentVar]  ## Extracted Scaling coloumns  only needed so take it 
+scalingIndependentVar = ["year", "km_driven", "mileage", "engine", "seats"]
+scalingDF = df5[
+    scalingIndependentVar
+]  ## Extracted Scaling coloumns  only needed so take it
 # scalingDF
-df6 = df5.drop(columns=scalingIndependentVar) ## 
+df6 = df5.drop(columns=scalingIndependentVar)  ##
 
 from sklearn.preprocessing import StandardScaler
 
 ss = StandardScaler()
 scalerArr = ss.fit_transform(scalingDF[scalingIndependentVar])
-scaledDF = pd.DataFrame(scalerArr,columns=ss.get_feature_names_out(scalingIndependentVar))
+scaledDF = pd.DataFrame(
+    scalerArr, columns=ss.get_feature_names_out(scalingIndependentVar)
+)
 
-df7 = pd.concat([scaledDF,df6],axis=1)
+df7 = pd.concat([scaledDF, df6], axis=1)
 historicalData = df7.copy()
 # df7
 
@@ -335,23 +315,24 @@ historicalData = df7.copy()
 # In[37]:
 
 
-input_data = df7.drop(columns=['selling_price'])
-output_data = df7['selling_price']
+input_data = df7.drop(columns=["selling_price"])
+output_data = df7["selling_price"]
 # print(input_data.shape)
 # print(output_data.shape)
 
 import warnings
-warnings.filterwarnings('ignore')
+
+warnings.filterwarnings("ignore")
 from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 
 from sklearn.preprocessing import PolynomialFeatures
-from sklearn.linear_model import LogisticRegression,Lasso,Ridge
-from sklearn.tree import DecisionTreeRegressor 
+from sklearn.linear_model import LogisticRegression, Lasso, Ridge
+from sklearn.tree import DecisionTreeRegressor
 from sklearn.neighbors import KNeighborsRegressor  # 87+
 from sklearn.ensemble import RandomForestRegressor  # 89+
-from sklearn.svm import SVR 
-from sklearn.ensemble import GradientBoostingRegressor #87+
+from sklearn.svm import SVR
+from sklearn.ensemble import GradientBoostingRegressor  # 87+
 
 
 # In[38]:
@@ -359,31 +340,21 @@ from sklearn.ensemble import GradientBoostingRegressor #87+
 
 # print(input_data.columns)
 
-x_train, x_test, y_train, y_test = train_test_split(input_data,output_data,test_size=0.2,random_state=42,shuffle=True)
+x_train, x_test, y_train, y_test = train_test_split(
+    input_data, output_data, test_size=0.2, random_state=42, shuffle=True
+)
 
 
 # In[ ]:
 
 
-
+# In[ ]:
 
 
 # In[ ]:
 
 
-
-
-
 # In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
 
 
 # In[39]:
@@ -398,8 +369,8 @@ model.fit(x_train, y_train)
 # model =  RandomForestRegressor(random_state=0)
 # model.fit(x_train,y_train)
 
-print(model.score(x_train,y_train))
-print(model.score(x_test,y_test))
+print(model.score(x_train, y_train))
+print(model.score(x_test, y_test))
 
 
 # In[40]:
@@ -410,25 +381,65 @@ for i in range(10):
     data = x_test.iloc[index, :].values.tolist()
     # print(data)
     # print()
-    
-    
-    testing_data = pd.DataFrame([data],columns=['year', 'km_driven', 'mileage', 'engine', 'seats', 'name_Ambassador',
-        'name_Ashok', 'name_Audi', 'name_BMW', 'name_Chevrolet', 'name_Daewoo',
-        'name_Datsun', 'name_Fiat', 'name_Force', 'name_Ford', 'name_Honda',
-        'name_Hyundai', 'name_Isuzu', 'name_Jaguar', 'name_Jeep', 'name_Kia',
-        'name_Land', 'name_Lexus', 'name_MG', 'name_Mahindra', 'name_Maruti',
-        'name_Mercedes-Benz', 'name_Mitsubishi', 'name_Nissan', 'name_Opel',
-        'name_Renault', 'name_Skoda', 'name_Tata', 'name_Toyota',
-        'name_Volkswagen', 'name_Volvo', 'fuel_CNG', 'fuel_Diesel', 'fuel_LPG',
-        'fuel_Petrol', 'seller_type_Dealer', 'seller_type_Individual',
-        'seller_type_Trustmark Dealer', 'transmission_Automatic',
-        'transmission_Manual', 'owner_First Owner',
-        'owner_Fourth & Above Owner', 'owner_Second Owner',
-        'owner_Test Drive Car', 'owner_Third Owner'])
+
+    testing_data = pd.DataFrame(
+        [data],
+        columns=[
+            "year",
+            "km_driven",
+            "mileage",
+            "engine",
+            "seats",
+            "name_Ambassador",
+            "name_Ashok",
+            "name_Audi",
+            "name_BMW",
+            "name_Chevrolet",
+            "name_Daewoo",
+            "name_Datsun",
+            "name_Fiat",
+            "name_Force",
+            "name_Ford",
+            "name_Honda",
+            "name_Hyundai",
+            "name_Isuzu",
+            "name_Jaguar",
+            "name_Jeep",
+            "name_Kia",
+            "name_Land",
+            "name_Lexus",
+            "name_MG",
+            "name_Mahindra",
+            "name_Maruti",
+            "name_Mercedes-Benz",
+            "name_Mitsubishi",
+            "name_Nissan",
+            "name_Opel",
+            "name_Renault",
+            "name_Skoda",
+            "name_Tata",
+            "name_Toyota",
+            "name_Volkswagen",
+            "name_Volvo",
+            "fuel_CNG",
+            "fuel_Diesel",
+            "fuel_LPG",
+            "fuel_Petrol",
+            "seller_type_Dealer",
+            "seller_type_Individual",
+            "seller_type_Trustmark Dealer",
+            "transmission_Automatic",
+            "transmission_Manual",
+            "owner_First Owner",
+            "owner_Fourth & Above Owner",
+            "owner_Second Owner",
+            "owner_Test Drive Car",
+            "owner_Third Owner",
+        ],
+    )
 
     predicted_value = model.predict(testing_data)
     # print("Predicted : ",predicted_value)
-
 
     actual_data_result = y_test.iloc[index]
     # print("Actual : ",actual_data_result)
@@ -437,31 +448,16 @@ for i in range(10):
 # In[ ]:
 
 
-
+# In[ ]:
 
 
 # In[ ]:
 
 
-
-
-
 # In[ ]:
 
 
-
-
-
 # In[ ]:
-
-
-
-
-
-# In[ ]:
-
-
-
 
 
 # ## HyperParameter Tunning
@@ -469,7 +465,7 @@ for i in range(10):
 # In[41]:
 
 
-#GridSearchCV
+# GridSearchCV
 # from sklearn.model_selection import GridSearchCV
 
 
@@ -480,7 +476,7 @@ for i in range(10):
 #     'n_neighbors':[i for i in range(8)],
 #      'weights':['distance'],
 #       'algorithm':['ball_tree'],
-#        'leaf_size':[i for i in range(5)], 
+#        'leaf_size':[i for i in range(5)],
 #        'p':[i for i in range(4)]
 # }
 
@@ -500,7 +496,7 @@ for i in range(10):
 #      'max_depth':[i for i in range(8)],
 #       'min_samples_split':[i for i in range(8)],
 #        'min_samples_leaf':[i for i in range(4)],
-#         'max_features':['sqrt', 'log2'], 
+#         'max_features':['sqrt', 'log2'],
 #         'max_leaf_nodes':[i for i in range(4)]
 # }
 
@@ -512,9 +508,6 @@ for i in range(10):
 
 
 # In[ ]:
-
-
-
 
 
 # ## Model Export
@@ -585,20 +578,10 @@ dataFrame = df
 # In[ ]:
 
 
-
-
-
 # In[52]:
 
 
 # In[ ]:
 
 
-
-
-
 # In[ ]:
-
-
-
-
