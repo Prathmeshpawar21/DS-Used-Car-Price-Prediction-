@@ -284,8 +284,8 @@ form{
 
 
 .btnClass{
-  /* border-bottom: 2px solid rgb(211, 0, 0); */
-  box-shadow: 0 0 15px 4px rgb(165, 165, 165); 
+  width: 120px;/* border-bottom: 2px solid rgb(211, 0, 0); */
+  box-shadow: 0 0 15px 4px rgb(133, 0, 0); 
 
 }
 .navbarbox{
@@ -297,5 +297,9 @@ form{
 
 
 .predictedOutput{
-  margin-top: 10px;
+  margin-top: 8px;
+}
+
+.buttonClass{
+  margin-top: 37px;
 }
