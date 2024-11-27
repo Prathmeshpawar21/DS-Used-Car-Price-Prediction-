@@ -254,7 +254,7 @@ def base():
             
         ### For smother HotReloading End Code ##
         
-        
+          
 
     return render_template(
         "./base.html",
