@@ -7,7 +7,7 @@ window.addEventListener("beforeunload", function () {
 function smoothScrollTo(targetY) {
   const startY = window.scrollY;
   const distance = targetY - startY;
-  const duration = 1000; // duration of the scroll (in milliseconds)
+  const duration = 300; // duration of the scroll (in milliseconds)
   let startTime = null;
 
   // Easing function (ease-in-out)
