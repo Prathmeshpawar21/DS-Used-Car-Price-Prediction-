@@ -20,13 +20,15 @@ app = Flask(__name__)
 form_data = {}
 
 
-@app.route("/", methods=["POST"])
+@app.route("/", methods=["GET","POST"])
 def homepage():
 
     print("FILE : app.py ")
     car_company_names = dataFrame["name"].apply(nf.get_carBrandNames).unique().tolist()
     car_company_names.sort()
     # Fetch Form Inputted Data
+    if request.method == "GET":
+        print("This is GET Method")
     if request.method == "POST":
         name = request.form.get("carcompany")
         fuel = request.form.get("fueltype")
