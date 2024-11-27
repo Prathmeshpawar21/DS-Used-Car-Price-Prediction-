@@ -37,7 +37,7 @@
           
 
           <div class="container">
-                <form id="myForm" class="p-3 formClass" method="post"  action="/">
+                <form id="myForm" class="p-3 formClass" method='post'  action='/'>
                       <div id="carCompany">
                         <label for="inputState">Car Company</label>
                         <select id="inputState" class="form-control" name="carcompany">
@@ -158,7 +158,7 @@
                   </div>
 
                   <div class="buttonClass">
-                    <button name="btnpressed" type="submit" class="btn btn-dark btnClass">Submit</button>
+                    <button name="btnpressed" type="submit" value="submit" class="btn btn-dark btnClass">Submit</button>
                   </div>
 
                 </form>
@@ -182,7 +182,8 @@
 
 
                 {% else %} 
-                No {{ FinalPredictedOutput }}   
+                
+                  {{ FinalPredictedOutput }}   
 
                 {% endif %}
               </div>

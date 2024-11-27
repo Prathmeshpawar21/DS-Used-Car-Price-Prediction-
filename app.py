@@ -19,16 +19,14 @@ app = Flask(__name__)
 
 form_data = {}
 
-
-@app.route("/", methods=["POST"])
-def homepage():
+@app.route('/', methods=['POST','GET'])
+def base():
+    FinalPredictedOutput=0
 
     print("FILE : app.py ")
     car_company_names = dataFrame["name"].apply(nf.get_carBrandNames).unique().tolist()
     car_company_names.sort()
     # Fetch Form Inputted Data
-    if request.method == "GET":
-        print("This is GET Method")
     if request.method == "POST":
         name = request.form.get("carcompany")
         fuel = request.form.get("fueltype")
@@ -115,112 +113,113 @@ def homepage():
         "owner_Test Drive Car",
         "owner_Third Owner",
     ]
+    
+    if request.method == "POST":
+        input_data = pd.DataFrame(
+            {
+                "name": [fromDataDict["name"]],
+                "fuel": [fromDataDict["fuel"]],
+                "seller_type": [fromDataDict["seller_type"]],
+                "transmission": [fromDataDict["transmission"]],
+                "owner": [fromDataDict["owner"]],
+                "year": [fromDataDict["year"]],
+                "km_driven": [fromDataDict["km_driven"]],
+                "engine": [fromDataDict["engine"]],
+                "mileage": [fromDataDict["mileage"]],
+                "seats": [fromDataDict["seats"]],
+            }
+        )
 
-    input_data = pd.DataFrame(
-        {
-            "name": [fromDataDict["name"]],
-            "fuel": [fromDataDict["fuel"]],
-            "seller_type": [fromDataDict["seller_type"]],
-            "transmission": [fromDataDict["transmission"]],
-            "owner": [fromDataDict["owner"]],
-            "year": [fromDataDict["year"]],
-            "km_driven": [fromDataDict["km_driven"]],
-            "engine": [fromDataDict["engine"]],
-            "mileage": [fromDataDict["mileage"]],
-            "seats": [fromDataDict["seats"]],
-        }
-    )
+        categorical_columns = ["name", "fuel", "seller_type", "transmission", "owner"]
 
-    categorical_columns = ["name", "fuel", "seller_type", "transmission", "owner"]
+        ohe = OneHotEncoder(sparse_output=False)
+        encodedOHEArr = ohe.fit_transform(input_data[categorical_columns])
+        encodedOHEDf = pd.DataFrame(
+            encodedOHEArr, columns=ohe.get_feature_names_out(categorical_columns)
+        )
 
-    ohe = OneHotEncoder(sparse_output=False)
-    encodedOHEArr = ohe.fit_transform(input_data[categorical_columns])
-    encodedOHEDf = pd.DataFrame(
-        encodedOHEArr, columns=ohe.get_feature_names_out(categorical_columns)
-    )
+        print(encodedOHEDf)
 
-    print(encodedOHEDf)
+        # Add missing columns and set their values to 0
+        for col in test_columns:
+            if col not in encodedOHEDf.columns:
+                encodedOHEDf[col] = 0
 
-    # Add missing columns and set their values to 0
-    for col in test_columns:
-        if col not in encodedOHEDf.columns:
-            encodedOHEDf[col] = 0
+        # Ensure the column order matches the test data
 
-    # Ensure the column order matches the test data
+        encodedOHEDf = encodedOHEDf[test_columns]
 
-    encodedOHEDf = encodedOHEDf[test_columns]
+        encodedOHEDf.drop(
+            columns=["year", "km_driven", "mileage", "engine", "seats"], inplace=True
+        )
 
-    encodedOHEDf.drop(
-        columns=["year", "km_driven", "mileage", "engine", "seats"], inplace=True
-    )
+        # print(encodedOHEDf)
 
-    # print(encodedOHEDf)
+        nonEncodedData = input_data = pd.DataFrame(
+            {
+                "year": [fromDataDict["year"]],
+                "km_driven": [fromDataDict["km_driven"]],
+                "mileage": [fromDataDict["mileage"]],
+                "engine": [fromDataDict["engine"]],
+                "seats": [fromDataDict["seats"]],
+            }
+        )
 
-    nonEncodedData = input_data = pd.DataFrame(
-        {
-            "year": [fromDataDict["year"]],
-            "km_driven": [fromDataDict["km_driven"]],
-            "mileage": [fromDataDict["mileage"]],
-            "engine": [fromDataDict["engine"]],
-            "seats": [fromDataDict["seats"]],
-        }
-    )
+        print("Print Here")
 
-    print("Print Here")
+        # Scaling Data from formula var get from notebook like mean, std of historical Data
+        records = [
+            float(fromDataDict["year"]),
+            float(fromDataDict["km_driven"]),
+            float(fromDataDict["mileage"]),
+            float(fromDataDict["engine"]),
+            float(fromDataDict["seats"]),
+        ]
 
-    # Scaling Data from formula var get from notebook like mean, std of historical Data
-    records = [
-        float(fromDataDict["year"]),
-        float(fromDataDict["km_driven"]),
-        float(fromDataDict["mileage"]),
-        float(fromDataDict["engine"]),
-        float(fromDataDict["seats"]),
-    ]
+        means = [
+            float(2013.61114),
+            float(73398.3377),
+            float(19.4665848),
+            float(1430.98586),
+            float(5.43427125),
+        ]
+        stds = [
+            float(3.89711144),
+            float(58698.9054),
+            float(4.04780053),
+            float(493.432463),
+            float(0.983731806),
+        ]
+        # Example inputted form data (ensure the order matches training data columns)
+        # year, km_driven, engine, mileage, seats
+        # print(records)
+        # Scale the form data
+        scaled_form_data = [
+            (value - mean) / std for value, mean, std in zip(records, means, stds)
+        ]
 
-    means = [
-        float(2013.61114),
-        float(73398.3377),
-        float(19.4665848),
-        float(1430.98586),
-        float(5.43427125),
-    ]
-    stds = [
-        float(3.89711144),
-        float(58698.9054),
-        float(4.04780053),
-        float(493.432463),
-        float(0.983731806),
-    ]
-    # Example inputted form data (ensure the order matches training data columns)
-    # year, km_driven, engine, mileage, seats
-    print(records)
-    # Scale the form data
-    scaled_form_data = [
-        (value - mean) / std for value, mean, std in zip(records, means, stds)
-    ]
+        print("Scaled Form Data:", scaled_form_data)
 
-    print("Scaled Form Data:", scaled_form_data)
+        inputScaledDataFrame = pd.DataFrame(
+            {
+                "year": [scaled_form_data[0]],
+                "km_driven": [scaled_form_data[1]],
+                "mileage": [scaled_form_data[2]],
+                "engine": [scaled_form_data[3]],
+                "seats": [scaled_form_data[4]],
+            }
+        )
 
-    inputScaledDataFrame = pd.DataFrame(
-        {
-            "year": [scaled_form_data[0]],
-            "km_driven": [scaled_form_data[1]],
-            "mileage": [scaled_form_data[2]],
-            "engine": [scaled_form_data[3]],
-            "seats": [scaled_form_data[4]],
-        }
-    )
+        test_input_Data_for_model = pd.concat([inputScaledDataFrame, encodedOHEDf], axis=1)
+        print(test_input_Data_for_model)
 
-    test_input_Data_for_model = pd.concat([inputScaledDataFrame, encodedOHEDf], axis=1)
-    print(test_input_Data_for_model)
+        if test_input_Data_for_model.columns.tolist() == test_columns:
+            print("SIMILLAR COLOUMS")
 
-    if test_input_Data_for_model.columns.tolist() == test_columns:
-        print("SIMILLAR COLOUMS")
-
-    #################################################################################
-    FinalPredictedOutput = model.predict(test_input_Data_for_model)
-    FinalPredictedOutput = FinalPredictedOutput[0]
-    print("Predicted Value : ", FinalPredictedOutput)
+        #################################################################################
+        FinalPredictedOutput = model.predict(test_input_Data_for_model)
+        FinalPredictedOutput = FinalPredictedOutput[0]
+        print("Predicted Value : ", FinalPredictedOutput)
     #################################################################################
 
     # return render_template('./base.html', **fromDataDict, car_company_names=car_company_names,InputDataDF=InputDataDF,FinalPredictedOutput=FinalPredictedOutput)
