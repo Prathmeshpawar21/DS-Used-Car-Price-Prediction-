@@ -22,6 +22,9 @@
       href="{{ url_for('static', filename='bootstrap.min.css') }}"
     />
     <script src="{{ url_for('static', filename='bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='jquery.min.js') }}"></script>
+
+
   </head>
 
   <body>
@@ -41,8 +44,13 @@
                       <div id="carCompany">
                         <label for="inputState">Car Company</label>
                         <select id="inputState" class="form-control" name="carcompany">
-                          {% for car in car_company_names %}
+                          <!-- {% for car in car_company_names %}
                           <option>{{ car }}</option>
+                          {% endfor %} -->
+                          {% for car in car_company_names %}
+                          <option value="{{ car }}" {% if car == form_data.carcompany %}selected{% endif %}>
+                            {{ car }}
+                          </option>
                           {% endfor %}
                         </select>
                       </div>
@@ -51,41 +59,71 @@
                         <div id="labelTitle">
                           <label class="labelClass" for="inputState">Fuel Type</label>
                           <select id="inputState" class="form-control" name="fueltype">
-                            <option>Petrol</option>
+                            <!-- <option>Petrol</option>
                             <option>Diesel</option>
                             <option>CNG</option>
-                            <option>LPG</option>
+                            <option>LPG</option> -->
+                            <option value="Petrol" {% if form_data.fueltype == "Petrol" %}selected{% endif %}>
+                              Petrol
+                            </option>
+                            <option value="Diesel" {% if form_data.fueltype == "Diesel" %}selected{% endif %}>
+                              Diesel
+                            </option>
+                            <option value="CNG" {% if form_data.fueltype == "CNG" %}selected{% endif %}>
+                              CNG
+                            </option>
+                            <option value="LPG" {% if form_data.fueltype == "LPG" %}selected{% endif %}>
+                              LPG
+                            </option>
                           </select>
                         </div>
+
                         <div id="labelTitle">
                           <label class="labelClass"  for="inputState">Seller Type</label>
                           <select id="inputState" class="form-control" name="sellertype">
-                            <option>Individual</option>
+                            <!-- <option>Individual</option>
                             <option>Dealer</option>
-                            <option>Trustmark Dealer</option>
+                            <option>Trustmark Dealer</option> -->
+                            <option value="Individual" {% if form_data.sellertype == "Individual" %}selected{% endif %}>Individual</option>
+                              <option value="Dealer" {% if form_data.sellertype == "Dealer" %}selected{% endif %}>Dealer</option>
+                                <option value="Trustmark Dealer" {% if form_data.sellertype == "Trustmark Dealer" %}selected{% endif %}>Trustmark Dealer</option>
+
                           </select>
                         </div>
+
                         <div id="labelTitle">
                           <label class="labelClass" for="inputState">Transmisson Type</label>
                           <select id="inputState" class="form-control" name="transmissiontype">
-                            <option>Manual</option>
-                            <option>Automatic</option>
+                            <!-- <option>Manual</option>
+                            <option>Automatic</option> -->
+                            <option value="Manual" {% if form_data.transmissiontype == "Manual" %}selected{% endif %}>Manual</option>
+                              <option value="Automatic" {% if form_data.transmissiontype == "Automatic" %}selected{% endif %}>Automatic</option>
+
+
                           </select>
                         </div>
                         <div id="labelTitle">
                           <label class="labelClass" for="inputState">Car Owner</label>
                           <select id="inputState" class="form-control" name="carowner">
-                            <option>First Owner</option>
+                            <!-- <option>First Owner</option>
                             <option>Second Owner</option>
                             <option>Third Owner</option>
                             <option>Fourth & Above Owner</option>
-                            <option>Test Drive Car</option>
+                            <option>Test Drive Car</option> -->
+
+                            <option value="First Owner" {% if form_data.carowner == "First Owner" %}selected{% endif %}>First Owner</option>
+                              <option value="Second Owner" {% if form_data.carowner == "Second Owner" %}selected{% endif %}>Second Owner</option>
+                                <option value="Third Owner" {% if form_data.carowner == "Third Owner" %}selected{% endif %}>Third Owner</option>
+                                  <option value="Fourth & Above Owner" {% if form_data.carowner == "Fourth & Above Owner" %}selected{% endif %}>Fourth & Above Owner</option>
+                                    <option value="Test Drive Car" {% if form_data.carowner == "Test Drive Car" %}selected{% endif %}>Test Drive Car</option>
+
                           </select>
                         </div>
                   </div> <!--  class="inputGrids" -->
 
+<!-- Range Slicer From Below -->
 
-                  <div class="range-slider">
+                  <!-- <div class="range-slider">
                     <label for="formControlRange">Manufactured Year</label>
                     <input
                       class="range-slider__range"
@@ -97,6 +135,21 @@
                       name="manufacturedyear"
                     />
                     <span class="range-slider__value">1994</span>
+                  </div> -->
+
+
+                  <div class="range-slider">
+                    <label for="formControlRange">Manufactured Year</label>
+                    <input
+                      class="range-slider__range"
+                      type="range"
+                      value="{{ form_data.manufacturedyear }}"
+                      min="1994"
+                      max="2020"
+                      step="1"
+                      name="manufacturedyear"
+                    />
+                    <span class="range-slider__value">{{ form_data.manufacturedyear }}</span>
                   </div>
 
                   <div class="range-slider">
@@ -104,13 +157,13 @@
                     <input
                       class="range-slider__range"
                       type="range"
-                      value="1000"
+                      value="{{ form_data.kmsdriven }}"
                       min="1000"
                       max="600000"
                       step="1000"
                       name="kmsdriven"
                     />
-                    <span class="range-slider__value">1000</span>
+                    <span class="range-slider__value">{{ form_data.kmsdriven }}</span>
                   </div>
 
 
@@ -119,12 +172,12 @@
                     <input
                       class="range-slider__range"
                       type="range"
-                      value="9"
+                      value="{{ form_data.carmileage }}"
                       min="9"
                       max="42"
                       name="carmileage"
                     />
-                    <span class="range-slider__value">9</span>
+                    <span class="range-slider__value">{{ form_data.carmileage }}</span>
                   </div>
 
                   
@@ -133,13 +186,13 @@
                     <input
                       class="range-slider__range"
                       type="range"
-                      value="650"
+                      value="{{ form_data.carenginecc }}"
                       min="650"
                       max="3604"
                       step="100"
                       name="carenginecc"
                     />
-                    <span class="range-slider__value">650</span>
+                    <span class="range-slider__value">{{ form_data.carenginecc }}</span>
                   </div>
 
                   
@@ -149,12 +202,12 @@
                     <input
                       class="range-slider__range"
                       type="range"
-                      value="2"
+                      value="{{ form_data.noofseats }}"
                       min="2"
                       max="14"
                       name="noofseats"
                     />
-                    <span class="range-slider__value">2</span>
+                    <span class="range-slider__value">{{ form_data.noofseats }}</span>
                   </div>
 
                   <div class="buttonClass">

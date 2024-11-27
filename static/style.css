@@ -23,12 +23,15 @@
   }
 html{
   background-color: black;
+scroll-behavior:smooth;
+
 }
 
 
 
-
 .bodyclass{
+scroll-behavior:smooth;
+
   height: 100vh; 
   place-items: center;
   position: relative;
