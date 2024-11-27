@@ -227,7 +227,10 @@
 
                 {% if request.method == "POST"  %} 
                   {% if 'btnpressed' in request.form%} 
+
+                  <p class="pText"> <i> Predicted Value</i></p>
                     <h3 class="output">
+
                       {{FinalPredictedOutput}}
                     </h3>
                   {% endif %}
