@@ -1,22 +1,19 @@
 # Car Price Prediction 🚗📊
 
+### App Link - [Live](https://carprice-w4i6.onrender.com//)
+
+
 This repository contains a Data Science project focused on predicting car prices using machine learning. The project includes data preprocessing, exploratory data analysis (EDA), feature engineering, model building, and evaluation.
 
 ## Project Overview 🌟
 
 Accurate car price prediction helps buyers and sellers in the automotive market. This project leverages historical sales data to predict car prices based on features like make, model, year, mileage, and more.
 
-## Table of Contents 📑
 
-- [Dataset](#dataset)
-- [Technologies Used](#technologies-used)
-- [Project Structure](#project-structure)
-- [Setup Instructions](#setup-instructions)
-- [Modeling Approach](#modeling-approach)
-- [Results](#results)
-- [Future Improvements](#future-improvements)
-- [Contributing](#contributing)
-- [License](#license)
+## Screenshots
+
+![App Screenshot](https://raw.githubusercontent.com/Prathmeshpawar21/Resources/refs/heads/main/SS/carprice-modified.png)
+
 
 ## Dataset 📊
 
@@ -118,6 +115,11 @@ SVR),Tune hyperparameters.
 3. Commit your changes (`git commit -m 'Add some feature'`).
 4. Push to the branch (`git push origin feature-branch-name`).
 5. Open a Pull Request.
+
+## 🔗 Links
+
+[![portfolio](https://img.shields.io/badge/my_portfolio-000?style=for-the-badge&logo=ko-fi&logoColor=white)](https://prathameshpawar-mu.vercel.app/)
+[![linkedin](https://img.shields.io/badge/linkedin-0A66C2?style=for-the-badge&logo=linkedin&logoColor=white)](https://www.linkedin.com/in/prathameshpawar21/)
 
 ## License 📜
 
